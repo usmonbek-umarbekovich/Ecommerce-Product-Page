@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# temporary files
+/design
+README-App.md
+style-guide.md
