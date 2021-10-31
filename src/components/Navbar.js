@@ -4,7 +4,7 @@ import ProfileCart from './ProfileCart';
 
 function Navbar() {
   return (
-    <nav>
+    <nav id='main-navbar'>
       <img src={logo} alt='sneakers' className='logo' />
       <NavItems />
       <ProfileCart />
