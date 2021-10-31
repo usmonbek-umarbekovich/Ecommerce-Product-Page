@@ -1,13 +1,26 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import cartIcon from '../images/icon-cart.svg';
 import CartItem from './CartItem';
+import { useProducts } from '../contexts/ProductsProvider';
 
 function Cart() {
   const [showCart, setShowCart] = useState(false);
+  const { products, clearProducts } = useProducts();
+  const cartRef = useRef();
 
-  const handleWindowClick = useCallback(() => {
-    setShowCart(false);
-  }, [setShowCart]);
+  let length = 0;
+  products.forEach(p => {
+    length += p.count;
+  });
+
+  const handleWindowClick = useCallback(
+    e => {
+      const el = e.target.closest('.cart-items-container');
+      if (el === cartRef.current) return;
+      setShowCart(false);
+    },
+    [setShowCart]
+  );
 
   const handleKeyDown = useCallback(
     e => {
@@ -20,8 +33,8 @@ function Cart() {
 
   useEffect(() => {
     if (showCart) {
-      window.addEventListener('click', handleWindowClick);
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('click', handleWindowClick, true);
+      window.addEventListener('keydown', handleKeyDown, true);
     }
 
     return () => {
@@ -30,27 +43,9 @@ function Cart() {
     };
   }, [showCart, handleWindowClick, handleKeyDown]);
 
-  const products = [
-    {
-      id: 1,
-      name: 'Fall Limited Edition Sneakers',
-      description: `These low-profile sneakers are perfect casual wear companion.
-                  Featuring a durable rubber outer sole,
-                  they'll withstand everything the weather can offer.`,
-      price: 250,
-      discount: 0.5,
-      count: 3,
-    },
-  ];
-  let length = 0;
-  products.forEach(p => {
-    length += p.count;
-  });
-
-  const productList = products.map(product => (
-    <CartItem key={product.id} product={product} />
+  const productList = products.map((product, index) => (
+    <CartItem key={index} product={product} />
   ));
-  const emptyCartMessage = <p className='empty-cart'>Your cart is empty</p>;
 
   return (
     <div className='cart-basket'>
@@ -58,11 +53,21 @@ function Cart() {
         <use href={`${cartIcon}#cart`} />
       </svg>
       {length > 0 && <div className='cart-count'>{length}</div>}
-      <div className={`cart-items-container ${showCart ? 'show' : ''}`}>
+      <div
+        ref={cartRef}
+        className={`cart-items-container ${showCart ? 'show' : ''}`}>
         <p className='title'>Cart</p>
         <ul className='cart-items'>
-          {length > 0 ? productList : emptyCartMessage}
-          <button className='btn btn-primary'>Checkout</button>
+          {length > 0 ? (
+            <>
+              {productList}
+              <button className='btn btn-primary' onClick={clearProducts}>
+                Checkout
+              </button>
+            </>
+          ) : (
+            <p className='empty-cart'>Your cart is empty</p>
+          )}
         </ul>
       </div>
     </div>
