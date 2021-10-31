@@ -1,20 +1,20 @@
 function NavItems() {
   return (
-    <ul>
-      <li>
-        <button>Collections</button>
+    <ul className='nav-items'>
+      <li className='nav-item'>
+        <button className='btn btn-text'>Collections</button>
       </li>
-      <li>
-        <button>Men</button>
+      <li className='nav-item'>
+        <button className='btn btn-text'>Men</button>
       </li>
-      <li>
-        <button>Women</button>
+      <li className='nav-item'>
+        <button className='btn btn-text'>Women</button>
       </li>
-      <li>
-        <button>About</button>
+      <li className='nav-item'>
+        <button className='btn btn-text'>About</button>
       </li>
-      <li>
-        <button>Contact</button>
+      <li className='nav-item'>
+        <button className='btn btn-text'>Contact</button>
       </li>
     </ul>
   );
