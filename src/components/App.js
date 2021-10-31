@@ -1,7 +1,9 @@
+import { useState, useEffect, useCallback } from 'react';
 import '../css/main.css';
 import Navbar from './Navbar';
 import ProductInfo from './ProductInfo';
 import ProductImageGallery from './ProductImageGallery';
+import { ProductsProvider } from '../contexts/ProductsProvider';
 
 function importAll(r) {
   const images = {};
@@ -10,24 +12,53 @@ function importAll(r) {
 }
 
 function App() {
-  const openGallery = true;
+  const [openGallery, setOpenGallery] = useState(false);
+
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === 'Escape') {
+        setOpenGallery(false);
+      }
+    },
+    [setOpenGallery]
+  );
+
+  useEffect(() => {
+    if (openGallery) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [openGallery, handleKeyDown]);
 
   return (
-    <>
+    <ProductsProvider>
       <header>
         <Navbar />
       </header>
-      <main>
-        <ProductImageGallery images={product.images} />
+      <main id='product-main-container'>
+        <ProductImageGallery
+          images={product.images}
+          onOpenGallery={() => setOpenGallery(true)}
+        />
         <ProductInfo product={product} />
       </main>
       {openGallery && (
         <div className='lightbox-gallery'>
-          <ProductImageGallery images={product.images} lightbox={true} />
-          <div className='gallery-overlay' />
+          <div
+            className='gallery-overlay'
+            onClick={() => setOpenGallery(false)}
+          />
+          <ProductImageGallery
+            images={product.images}
+            lightbox={true}
+            onCloseGallery={() => setOpenGallery(false)}
+          />
         </div>
       )}
-    </>
+    </ProductsProvider>
   );
 }
 
