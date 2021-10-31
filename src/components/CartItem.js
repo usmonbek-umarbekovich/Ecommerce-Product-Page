@@ -7,8 +7,8 @@ function CartItem({ product }) {
 
   return (
     <li>
-      <div className='product-image-container'>
-        <img src={productImage} alt='Product' className='product-image' />
+      <div className='product-image'>
+        <img src={productImage} alt='Product' />
       </div>
       <div className='product-info'>
         <p className='product-name'>{name}</p>
@@ -19,7 +19,7 @@ function CartItem({ product }) {
           </span>
         </p>
       </div>
-      <button className='remove-product'>
+      <button className='btn remove-product'>
         <img src={removeIcon} alt='Remove' />
       </button>
     </li>
