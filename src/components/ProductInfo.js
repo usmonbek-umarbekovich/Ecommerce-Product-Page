@@ -1,8 +1,15 @@
-import ProductQuantity from "./ProductQuantity";
+import ProductQuantity from './ProductQuantity';
+import { useProducts } from '../contexts/ProductsProvider';
 
 function ProductInfo({ product }) {
+  const { addProduct } = useProducts();
+
+  function onAddProduct(quantity) {
+    addProduct(product, quantity);
+  }
+
   return (
-    <div>
+    <div className='product-info'>
       <p className='company-name'>Sneaker Company</p>
       <h1 className='product-name'>{product.name}</h1>
       <p className='product-description'>{product.description}</p>
@@ -15,7 +22,7 @@ function ProductInfo({ product }) {
         </div>
         <p className='original-price'>${product.price.toFixed(2)}</p>
       </div>
-      <ProductQuantity />
+      <ProductQuantity onAddProduct={onAddProduct} />
     </div>
   );
 }
