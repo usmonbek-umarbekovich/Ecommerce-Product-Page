@@ -1,7 +1,35 @@
-import basket from '../images/icon-cart.svg';
+import { useState, useEffect, useCallback } from 'react';
+import cartIcon from '../images/icon-cart.svg';
 import CartItem from './CartItem';
 
 function Cart() {
+  const [showCart, setShowCart] = useState(false);
+
+  const handleWindowClick = useCallback(() => {
+    setShowCart(false);
+  }, [setShowCart]);
+
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === 'Escape') {
+        setShowCart(false);
+      }
+    },
+    [setShowCart]
+  );
+
+  useEffect(() => {
+    if (showCart) {
+      window.addEventListener('click', handleWindowClick);
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener('click', handleWindowClick);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showCart, handleWindowClick, handleKeyDown]);
+
   const products = [
     {
       id: 1,
@@ -14,20 +42,29 @@ function Cart() {
       count: 3,
     },
   ];
-  const length = products.length;
+  let length = 0;
+  products.forEach(p => {
+    length += p.count;
+  });
 
   const productList = products.map(product => (
     <CartItem key={product.id} product={product} />
   ));
-  const emptyCart = <p className='empty-cart'>Your cart is empty</p>;
+  const emptyCartMessage = <p className='empty-cart'>Your cart is empty</p>;
 
   return (
     <div className='cart-basket'>
-      <img src={basket} alt='Cart' />
-      <div className='cart-count'>{length > 0 ? length : ''}</div>
-      <ul className='card-items-container'>
-        {length > 0 ? productList : emptyCart}
-      </ul>
+      <svg onClick={() => setShowCart(!showCart)}>
+        <use href={`${cartIcon}#cart`} />
+      </svg>
+      {length > 0 && <div className='cart-count'>{length}</div>}
+      <div className={`cart-items-container ${showCart ? 'show' : ''}`}>
+        <p className='title'>Cart</p>
+        <ul className='cart-items'>
+          {length > 0 ? productList : emptyCartMessage}
+          <button className='btn btn-primary'>Checkout</button>
+        </ul>
+      </div>
     </div>
   );
 }
