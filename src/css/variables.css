@@ -8,5 +8,7 @@
   --a: hsl(223, 64%, 98%);
   --a: hsl(0, 0%, 100%);
   --a: hsl(0, 0%, 0%);
-  --op: 0.75;
+
+  --main-transition: 0.3s ease-in-out;
+  --main-shadow: 0 0 0 2px hsl(26, 100%, 55%);
 }

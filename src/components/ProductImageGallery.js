@@ -5,6 +5,9 @@ import previousIcon from '../images/icon-previous.svg';
 
 function ProductImageGallery(props) {
   const [index, setIndex] = useState(1);
+  const [smallScreen, setSmallScreen] = useState(
+    () => window.innerWidth <= 515
+  );
   const { images, lightbox, onOpenGallery, onCloseGallery } = props;
 
   const thumbnails = Object.keys(images).filter(image =>
@@ -33,11 +36,6 @@ function ProductImageGallery(props) {
     [handleNextImage, handlePreviousImage]
   );
 
-  function handleSetIndex(e, i) {
-    if (e.key !== 'Enter' && e.type !== 'click') return;
-    setIndex(i + 1);
-  }
-
   useEffect(() => {
     if (lightbox) {
       window.addEventListener('keydown', handleKeyDown);
@@ -47,8 +45,23 @@ function ProductImageGallery(props) {
     };
   }, [lightbox, handleKeyDown]);
 
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  function handleSetIndex(e, i) {
+    if (e.key !== 'Enter' && e.type !== 'click') return;
+    setIndex(i + 1);
+  }
+
+  function handleResize() {
+    setSmallScreen(window.innerWidth <= 515);
+  }
+
   function handleOpenGallery(e) {
     if (lightbox) return;
+    if (window.innerWidth <= 515) return;
     if (e.key !== 'Enter' && e.type !== 'click') return;
     onOpenGallery();
   }
@@ -64,13 +77,15 @@ function ProductImageGallery(props) {
         onClick={handleOpenGallery}
         onKeyDown={handleOpenGallery}
         onMouseDown={e => e.preventDefault()}
-        tabIndex={lightbox ? -1 : 0}>
+        tabIndex={lightbox || smallScreen ? -1 : 0}>
         <img src={images[`image-product-${index}.jpg`]} alt='Product' />
         {lightbox && (
+          <svg className='close-gallery' onClick={handleCloseGallery}>
+            <use href={`${closeIcon}#close`} />
+          </svg>
+        )}
+        {(lightbox || smallScreen) && (
           <>
-            <svg className='close-gallery' onClick={handleCloseGallery}>
-              <use href={`${closeIcon}#close`} />
-            </svg>
             <div className='previous-image' onClick={handlePreviousImage}>
               <svg>
                 <use href={`${previousIcon}#previous`} />
