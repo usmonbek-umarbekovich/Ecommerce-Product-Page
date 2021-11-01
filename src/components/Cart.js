@@ -15,7 +15,7 @@ function Cart() {
 
   const handleWindowClick = useCallback(
     e => {
-      const el = e.target.closest('.cart-items-container');
+      const el = e.target.closest('.cart-basket');
       if (el === cartRef.current) return;
       setShowCart(false);
     },
@@ -48,14 +48,12 @@ function Cart() {
   ));
 
   return (
-    <div className='cart-basket'>
+    <div className='cart-basket' ref={cartRef}>
       <svg onClick={() => setShowCart(!showCart)}>
         <use href={`${cartIcon}#cart`} />
       </svg>
       {length > 0 && <div className='cart-count'>{length}</div>}
-      <div
-        ref={cartRef}
-        className={`cart-items-container ${showCart ? 'show' : ''}`}>
+      <div className={`cart-items-container ${showCart ? 'show' : ''}`}>
         <p className='title'>Cart</p>
         <ul className='cart-items'>
           {length > 0 ? (
