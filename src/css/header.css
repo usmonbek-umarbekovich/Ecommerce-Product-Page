@@ -2,7 +2,7 @@
 #main-navbar {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 2rem;
   max-width: 1100px;
   margin: 0 auto;
   border-bottom: 1px solid hsl(220, 14%, 75%);
@@ -62,7 +62,7 @@
 }
 
 .profile-cart .profile-image:hover {
-  box-shadow: 0 0 0 2px var(--primary-color);
+  box-shadow: var(--main-shadow);
 }
 
 .profile-image img {
@@ -168,10 +168,17 @@
 }
 
 .cart-items li .remove-product {
+  padding: 2px;
+  padding-bottom: 0;
+}
+
+.cart-items li .remove-product svg {
+  width: 14px;
+  height: 16px;
   fill: hsl(221, 22%, 81%);
 }
 
-.cart-items li .remove-product:hover {
+.cart-items li .remove-product:hover svg {
   fill: var(--primary-color);
 }
 

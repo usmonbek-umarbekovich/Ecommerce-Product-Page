@@ -14,3 +14,7 @@ html {
 li {
   list-style: none;
 }
+
+#root {
+  overflow-x: hidden;
+}

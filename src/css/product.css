@@ -4,7 +4,7 @@
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
-  padding: 5rem 1rem;
+  padding: 5rem 2rem;
 }
 
 /* Product Gallery */
@@ -66,7 +66,7 @@
 }
 
 .active-thumbnail {
-  box-shadow: 0 0 0 2px var(--primary-color);
+  box-shadow: var(--main-shadow);
 }
 
 .active-thumbnail:after {
@@ -202,7 +202,6 @@
   margin-right: 1rem;
 }
 
-.lightbox,
 .gallery-overlay {
   position: fixed;
   top: 0;
@@ -212,10 +211,15 @@
 }
 
 .lightbox {
-  max-width: 1000px;
-  width: 30%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 400px;
+  width: 100%;
   margin: 0 auto;
-  padding: 6rem 1rem;
+  padding: 1rem;
 }
 
 .gallery-overlay {
