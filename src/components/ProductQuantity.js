@@ -13,27 +13,37 @@ function ProductQuantity({ onAddProduct }) {
     }
   }
 
-  function handleDecrement() {
+  function handleDecrement(e) {
+    if (e.key !== 'Enter' && e.type !== 'click') return;
     setQuantity(prevCount => {
       if (prevCount > 0) return prevCount - 1;
       else return prevCount;
     });
   }
 
-  function handleIncrement() {
+  function handleIncrement(e) {
+    if (e.key !== 'Enter' && e.type !== 'click') return;
     setQuantity(prevCount => prevCount + 1);
   }
 
   return (
     <div className='product-quantity'>
       <div className='quantity-counter'>
-        <div className='decrement' onClick={handleDecrement}>
+        <div
+          className='decrement'
+          onClick={handleDecrement}
+          onKeyDown={handleDecrement}
+          tabIndex='0'>
           <svg>
             <use href={`${minusIcon}#minus`} />
           </svg>
         </div>
         <p className='quantity'>{quantity}</p>
-        <div className='increment' onClick={handleIncrement}>
+        <div
+          className='increment'
+          onClick={handleIncrement}
+          onKeyDown={handleIncrement}
+          tabIndex='0'>
           <svg>
             <use href={`${plusIcon}#plus`} />
           </svg>

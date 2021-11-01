@@ -13,6 +13,11 @@ function Cart() {
     length += p.count;
   });
 
+  function handleShowCart(e) {
+    if (e.key !== 'Enter' && e.type !== 'click') return;
+    setShowCart(!showCart);
+  }
+
   const handleWindowClick = useCallback(
     e => {
       const el = e.target.closest('.cart-basket');
@@ -49,7 +54,11 @@ function Cart() {
 
   return (
     <div className='cart-basket' ref={cartRef}>
-      <svg onClick={() => setShowCart(!showCart)}>
+      <svg
+        onClick={handleShowCart}
+        onKeyDown={handleShowCart}
+        onMouseDown={e => e.preventDefault()}
+        tabIndex='0'>
         <use href={`${cartIcon}#cart`} />
       </svg>
       {length > 0 && <div className='cart-count'>{length}</div>}

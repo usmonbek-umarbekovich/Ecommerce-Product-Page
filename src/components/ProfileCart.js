@@ -5,7 +5,7 @@ function ProfileCart() {
   return (
     <div className='profile-cart'>
       <Cart />
-      <div className='profile-image'>
+      <div className='profile-image' tabIndex='0'>
         <img src={avatar} alt='Avatar' />
       </div>
     </div>

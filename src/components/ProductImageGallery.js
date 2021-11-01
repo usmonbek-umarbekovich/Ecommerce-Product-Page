@@ -33,6 +33,11 @@ function ProductImageGallery(props) {
     [handleNextImage, handlePreviousImage]
   );
 
+  function handleSetIndex(e, i) {
+    if (e.key !== 'Enter' && e.type !== 'click') return;
+    setIndex(i + 1);
+  }
+
   useEffect(() => {
     if (lightbox) {
       window.addEventListener('keydown', handleKeyDown);
@@ -42,19 +47,28 @@ function ProductImageGallery(props) {
     };
   }, [lightbox, handleKeyDown]);
 
-  function handleOpenGallery() {
+  function handleOpenGallery(e) {
     if (lightbox) return;
-
+    if (e.key !== 'Enter' && e.type !== 'click') return;
     onOpenGallery();
+  }
+
+  function handleCloseGallery(e) {
+    onCloseGallery();
   }
 
   return (
     <div className={`image-gallery ${lightbox ? 'lightbox' : ''}`}>
-      <div className='main-image' onClick={handleOpenGallery}>
+      <div
+        className='main-image'
+        onClick={handleOpenGallery}
+        onKeyDown={handleOpenGallery}
+        onMouseDown={e => e.preventDefault()}
+        tabIndex={lightbox ? -1 : 0}>
         <img src={images[`image-product-${index}.jpg`]} alt='Product' />
         {lightbox && (
           <>
-            <svg className='close-gallery' onClick={onCloseGallery}>
+            <svg className='close-gallery' onClick={handleCloseGallery}>
               <use href={`${closeIcon}#close`} />
             </svg>
             <div className='previous-image' onClick={handlePreviousImage}>
@@ -74,7 +88,10 @@ function ProductImageGallery(props) {
         {thumbnails.map((image, i) => (
           <li
             key={i}
-            onClick={() => setIndex(i + 1)}
+            onClick={e => handleSetIndex(e, i)}
+            onKeyDown={e => handleSetIndex(e, i)}
+            onMouseDown={e => e.preventDefault()}
+            tabIndex={lightbox ? -1 : 0}
             className={`thumbnail ${
               index === i + 1 ? 'active-thumbnail' : ''
             }`}>

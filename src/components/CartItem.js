@@ -7,6 +7,11 @@ function CartItem({ product }) {
   const { name, count, price, discount } = product;
   const discountedPrice = price * (1 - discount);
 
+  function handleDeleteProduct(e) {
+    if (e.key !== 'Enter' && e.type !== 'click') return;
+    deleteProduct(product);
+  }
+
   return (
     <li>
       <div className='cart-product-image'>
@@ -21,11 +26,16 @@ function CartItem({ product }) {
           </span>
         </p>
       </div>
-      <svg
+      <div
         className='btn remove-product'
-        onClick={() => deleteProduct(product)}>
-        <use href={`${removeIcon}#delete`} />
-      </svg>
+        onClick={handleDeleteProduct}
+        onKeyDown={handleDeleteProduct}
+        onMouseDown={e => e.preventDefault()}
+        tabIndex='0'>
+        <svg>
+          <use href={`${removeIcon}#delete`} />
+        </svg>
+      </div>
     </li>
   );
 }
