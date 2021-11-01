@@ -301,6 +301,10 @@ header {
 }
 
 @media (max-width: 515px) {
+  header {
+    padding: 0 1rem;
+  }
+
   #main-navbar {
     border-bottom: none;
     padding: 1.5rem 0;
@@ -328,10 +332,6 @@ header {
 }
 
 @media (max-width: 375px) {
-  header {
-    padding: 0 1rem;
-  }
-
   #main-navbar .nav-menu {
     margin-right: 1rem;
   }
@@ -344,9 +344,9 @@ header {
     margin-left: 1.5rem;
   }
 
-    .cart-items-container {
-      right: -5rem;
-    }
+  .cart-items-container {
+    right: -5rem;
+  }
 }
 
 @keyframes show-up {
