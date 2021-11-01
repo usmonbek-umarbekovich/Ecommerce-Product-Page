@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import closeIcon from '../images/icon-close.svg';
 import nextIcon from '../images/icon-next.svg';
 import previousIcon from '../images/icon-previous.svg';
@@ -11,24 +11,41 @@ function ProductImageGallery(props) {
     image.includes('thumbnail')
   );
 
-  function handleOpenGallery() {
-    if (lightbox) return;
-
-    onOpenGallery();
-  }
-
-  function handlePreviousImage() {
+  const handlePreviousImage = useCallback(() => {
     setIndex(prev => {
       if (prev === 1) return thumbnails.length;
       else return prev - 1;
     });
-  }
+  }, [thumbnails.length]);
 
-  function handleNextImage() {
+  const handleNextImage = useCallback(() => {
     setIndex(prev => {
       if (prev === thumbnails.length) return 1;
       else return prev + 1;
     });
+  }, [thumbnails.length]);
+
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === 'ArrowRight') handleNextImage();
+      if (e.key === 'ArrowLeft') handlePreviousImage();
+    },
+    [handleNextImage, handlePreviousImage]
+  );
+
+  useEffect(() => {
+    if (lightbox) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lightbox, handleKeyDown]);
+
+  function handleOpenGallery() {
+    if (lightbox) return;
+
+    onOpenGallery();
   }
 
   return (
