@@ -1,3 +1,4 @@
+/* Main product container */
 #product-main-container {
   display: flex;
   align-items: center;
@@ -49,7 +50,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  transition: 0.3s ease-in-out;
+  transition: var(--main-transition);
 }
 
 .thumbnail-container .thumbnail:hover:after {
@@ -94,7 +95,7 @@
 }
 
 .product-info .product-name {
-  color: hsl(220, 13%, 13%);
+  color: var(--highlight-color);
   font-weight: 700;
   font-size: 2.5rem;
   line-height: 1.1;
@@ -120,19 +121,19 @@
 
 .discounted-price .amount {
   font-size: 1.5rem;
-  color: hsl(220, 13%, 13%);
+  color: var(--highlight-color);
   margin-right: 1rem;
 }
 
 .discounted-price .discount {
-  background-color: var(--secondary-color);
+  background-color: hsl(25, 100%, 94%);
   color: var(--primary-color);
   padding: 1px 7px;
   border-radius: 5px;
 }
 
 .price-info .original-price {
-  color: hsl(220, 14%, 75%);
+  color: var(--light-color);
   font-weight: 700;
   text-decoration: line-through;
 }
@@ -158,7 +159,7 @@
   padding: 0.9rem 0;
   width: 2.5rem;
   font-weight: 700;
-  color: hsl(220, 13%, 13%);
+  color: var(--highlight-color);
 }
 
 .quantity-counter .increment,
@@ -168,7 +169,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
+  transition: var(--main-transition);
 }
 
 .quantity-counter .increment svg {
@@ -192,16 +193,17 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  transition: 0.3s ease-in-out;
+  transition: var(--main-transition);
 }
 
 .product-quantity .btn-add svg {
   width: 22px;
   height: 20px;
-  fill: hsl(0, 0%, 100%);
+  fill: var(--primary-background);
   margin-right: 1rem;
 }
 
+/* Lightbox */
 .gallery-overlay {
   position: fixed;
   top: 0;
@@ -223,7 +225,7 @@
 }
 
 .gallery-overlay {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: var(--overlay-background);
 }
 
 .main-image .close-gallery {
@@ -232,8 +234,8 @@
   top: -2rem;
   width: 14px;
   height: 15px;
-  fill: hsl(0, 0%, 100%);
-  transition: 0.3s ease-in-out;
+  fill: var(--primary-background);
+  transition: var(--main-transition);
 }
 
 .main-image .close-gallery:hover {
@@ -248,8 +250,8 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  stroke: hsl(220, 13%, 13%);
-  background-color: hsl(0, 0%, 100%);
+  stroke: var(--highlight-color);
+  background-color: var(--primary-background);
 
   display: flex;
   justify-content: center;
@@ -268,7 +270,7 @@
 .main-image .next-image svg {
   width: 13px;
   height: 18px;
-  transition: 0.3s ease-in-out;
+  transition: var(--main-transition);
 }
 
 .main-image .previous-image:hover svg,
@@ -276,6 +278,7 @@
   stroke: var(--primary-color);
 }
 
+/* Media queries for different screen size */
 @media (max-width: 900px) {
   #product-main-container .image-gallery {
     margin-right: 4rem;
@@ -362,5 +365,44 @@
 
   .main-image .next-image {
     right: 1rem;
+  }
+}
+
+/* Media queries for touch screens */
+@media (hover: none) {
+  .thumbnail-container .thumbnail:hover:after {
+    background-color: none;
+  }
+
+  .thumbnail-container .thumbnail:active:after {
+    background-color: hsla(0, 0%, 100%, 0.5);
+  }
+
+  .quantity-counter .decrement:hover,
+  .quantity-counter .increment:hover {
+    opacity: 1;
+  }
+
+  .quantity-counter .decrement:active,
+  .quantity-counter .increment:active {
+    opacity: 0.7;
+  }
+
+  .main-image .close-gallery:hover {
+    fill: var(--primary-background);
+  }
+
+  .main-image .close-gallery:active {
+    fill: var(--primary-color);
+  }
+
+  .main-image .previous-image:hover svg,
+  .main-image .next-image:hover svg {
+    stroke: var(--highlight-color);
+  }
+
+  .main-image .previous-image:active svg,
+  .main-image .next-image:active svg {
+    stroke: var(--primary-color);
   }
 }

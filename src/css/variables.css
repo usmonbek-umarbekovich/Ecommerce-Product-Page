@@ -1,14 +1,10 @@
 :root {
   --primary-color: hsl(26, 100%, 55%);
-  --secondary-color: hsl(25, 100%, 94%);
-
-  --a: hsl(220, 13%, 13%);
-  --a: hsl(219, 9%, 45%);
-  --a: hsl(220, 14%, 75%);
-  --a: hsl(223, 64%, 98%);
-  --a: hsl(0, 0%, 100%);
-  --a: hsl(0, 0%, 0%);
-
+  --primary-text-color: hsl(219, 9%, 45%);
+  --overlay-background: hsla(0, 0%, 0%, 0.75);
+  --primary-background: hsl(0, 0%, 100%);
   --main-transition: 0.3s ease-in-out;
-  --main-shadow: 0 0 0 2px hsl(26, 100%, 55%);
+  --main-shadow: 0 0 0 2px var(--primary-color);
+  --highlight-color: hsl(220, 13%, 13%);
+  --light-color: hsl(220, 14%, 75%);
 }
