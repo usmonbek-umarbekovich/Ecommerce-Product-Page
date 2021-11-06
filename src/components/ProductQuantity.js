@@ -33,6 +33,7 @@ function ProductQuantity({ onAddProduct }) {
           className='decrement'
           onClick={handleDecrement}
           onKeyDown={handleDecrement}
+          onMouseDown={e => e.preventDefault()}
           tabIndex='0'>
           <svg>
             <use href={`${minusIcon}#minus`} />
@@ -43,6 +44,7 @@ function ProductQuantity({ onAddProduct }) {
           className='increment'
           onClick={handleIncrement}
           onKeyDown={handleIncrement}
+          onMouseDown={e => e.preventDefault()}
           tabIndex='0'>
           <svg>
             <use href={`${plusIcon}#plus`} />
