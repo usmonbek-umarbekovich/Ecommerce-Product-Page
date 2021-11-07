@@ -5,11 +5,13 @@ function NavItems({ menuOpen, onCloseMenu }) {
     <>
       {menuOpen && <div className='menu-overlay' onClick={onCloseMenu} />}
       <ul className={`nav-items ${menuOpen ? 'show-nav' : ''}`}>
-        <button className='btn menu-close' onClick={onCloseMenu}>
-          <svg>
-            <use href={`${closeIcon}#close`} />
-          </svg>
-        </button>
+        <li>
+          <button className='btn menu-close' onClick={onCloseMenu}>
+            <svg>
+              <use href={`${closeIcon}#close`} />
+            </svg>
+          </button>
+        </li>
         <li className='nav-item'>
           <button className='btn btn-text'>Collections</button>
         </li>

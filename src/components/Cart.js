@@ -73,7 +73,7 @@ function Cart() {
               </button>
             </>
           ) : (
-            <p className='empty-cart'>Your cart is empty</p>
+            <li className='empty-cart'>Your cart is empty</li>
           )}
         </ul>
       </div>
