@@ -315,7 +315,7 @@ header {
   .cart-items-container {
     margin-top: 3rem;
     left: unset;
-    right: -6.7rem;
+    right: -5.65rem;
     transform: translateX(0) scaleX(0);
   }
 
